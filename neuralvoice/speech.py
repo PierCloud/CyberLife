@@ -14,7 +14,7 @@ todo_lst = ['Go shopping', 'clean room', 'record video']
 def create_note():
     global recognizer
 
-    speaker.say("what do you want to write onto your note list?")
+    speaker.say("Cosa vuoi che io aggiunga nella lista?")
     speaker.runAndWait()
 
     done = False
@@ -29,7 +29,7 @@ def create_note():
                 note = recognizer.recognize_google(audio)
                 note = note.lower()
 
-                speaker.say("choose a filename")
+                speaker.say("Scegli un filename")
                 speaker.runAndWait()
 
                 recognizer.adjust_for_ambient_noise(mic, duration=0.2)
@@ -41,18 +41,18 @@ def create_note():
             with open(filename, 'w') as f:
                 f.write(note)
                 done = True
-                speaker.say(f"I successfully created the note {filename}")
+                speaker.say(f"Operazione effettuata con successo...ho creato:{filename}")
                 speaker.runAndWait()
         except speech_recognition.UnknownValueError:
             recognizer = speech_recognition.Recognizer()
-            speaker.say("I did not understand you Please repeat")
+            speaker.say("Non ho capito...ripeti grazie")
             speaker.runAndWait()
 
 
 def add_todo():
     global recognizer
 
-    speaker.say("what to do do you want to add?")
+    speaker.say("cosa vuoi che io aggiunga alla lista?")
     speaker.runAndWait()
 
     done = False
@@ -69,37 +69,39 @@ def add_todo():
 
                 todo_lst.append(item)
                 done = True
-                speaker.say(f"I added {item} in to the to do list")
+                speaker.say(f"go aggiunto l'oggetto {item} nella tua lista")
                 speaker.runAndWait()
 
         except speech_recognition.UnknownValueError:
             recognizer = speech_recognition.Recognizer()
-            speaker.say("I did not understand you Please repeat")
+            speaker.say("Non ho capito, ripeti grazie")
             speaker.runAndWait()
 
 
 def show_todo():
     global recognizer
 
-    speaker.say("The item in your to do list are the following")
+    speaker.say("gli oggetti nella tua to do list sono i seguenti:")
     for item in todo_lst:
         speaker.say(item)
     speaker.runAndWait()
 
 
 def hello():
-    speaker.say("Hello. What can i do for you?")
+    speaker.say("CIAO. Cosa posso far per te?")
     speaker.runAndWait()
 
 
 def curiosity():
-    speaker.say("My name is VaporWave I was created by Piergiuseppe Di Pilla, part of Pier's knowledge flows freely "
-                "in my source code. I'm a CyberLife project")
+    speaker.say("Il mio nome è Vapur Weive...sono stato creato da Piergiuseppe Di Pilla...parte della conoscenza di "
+                "Pier scorre "
+                "libera nel mio codice sorgente...e "
+                "Sono un progetto CyberLife in fase di addestramento")
     speaker.runAndWait()
 
 
 def byebye():
-    speaker.say("Bye")
+    speaker.say("Ciao alla prossima")
     speaker.runAndWait()
     sys.exit(0)
 
@@ -116,21 +118,27 @@ mappings = {
 
 assistant = GenericAssistant('intentsSpeech.json', intent_methods=mappings)
 assistant.train_model()
-print("the boot is ready, just talk:")
+print("il bot è pronto, ora tocca a te, parla:")
 
 while True:
+    count = 0
+    while count <= 3:
+        try:
+            with speech_recognition.Microphone() as mic:
+                recognizer.adjust_for_ambient_noise(mic, duration=0.2)
+                audio = recognizer.listen(mic)
 
-    try:
-        with speech_recognition.Microphone() as mic:
-            recognizer.adjust_for_ambient_noise(mic, duration=0.2)
-            audio = recognizer.listen(mic)
+                message = recognizer.recognize_google(audio)
+                message = message.lower()
 
-            message = recognizer.recognize_google(audio)
-            message = message.lower()
+            assistant.request(message)
 
-        assistant.request(message)
-
-    except speech_recognition.UnknownValueError:
-        recognizer = speech_recognition.Recognizer()
-        speaker.say("I did not understand you Please repeat")
-        speaker.runAndWait()
+        except speech_recognition.UnknownValueError:
+            recognizer = speech_recognition.Recognizer()
+            speaker.say("Non ho capito...ripeti grazie")
+            speaker.runAndWait()
+            count = count + 1
+            print(count)
+    if count >= 4:
+        speaker.say("Non capisco se ci sei ancora?... non ti sento... a breve mi iberno se non parli")
+        byebye()
