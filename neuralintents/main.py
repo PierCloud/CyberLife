@@ -9,6 +9,8 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 import nltk
+
+nltk.download('omw-1.4')
 from nltk.stem import WordNetLemmatizer
 
 from tensorflow.keras.models import Sequential
@@ -18,6 +20,7 @@ from tensorflow.keras.models import load_model
 
 nltk.download('punkt', quiet=True)
 nltk.download('wordnet', quiet=True)
+
 
 class IAssistant(metaclass=ABCMeta):
 
@@ -76,8 +79,6 @@ class GenericAssistant(IAssistant):
         self.words = sorted(list(set(self.words)))
 
         self.classes = sorted(list(set(self.classes)))
-
-
 
         training = []
         output_empty = [0] * len(self.classes)
@@ -162,11 +163,12 @@ class GenericAssistant(IAssistant):
             tag = ints[0]['intent']
             list_of_intents = intents_json['intents']
             for i in list_of_intents:
-                if i['tag']  == tag:
+                if i['tag'] == tag:
                     result = random.choice(i['responses'])
                     break
         except IndexError:
             result = "I don't understand!"
+            print(result)
         return result
 
     def request_tag(self, message):
@@ -184,4 +186,7 @@ class GenericAssistant(IAssistant):
         if ints[0]['intent'] in self.intent_methods.keys():
             self.intent_methods[ints[0]['intent']]()
         else:
+            print(self._get_response(ints, self.intents))
             return self._get_response(ints, self.intents)
+
+
