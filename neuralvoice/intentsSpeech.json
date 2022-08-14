@@ -5,7 +5,7 @@
     "context_set": ""
   },
   {"tag": "create_note",
-    "patterns": ["please create a new note", "new note", "create a note", "i want to create a note", "i just want a note", "please note", "i want a new note", "new notes"],
+    "patterns": ["add","add a note","please create a new note", "new note", "create a note", "i want to create a note", "i just want a note", "please note", "i want a new note", "new notes"],
     "responses": ["okay tell me all"],
     "context_set": ""
   },
@@ -21,7 +21,7 @@
   },
   {"tag": "curiosity",
     "patterns": ["who is your inventor?", "who are you?", "who you?","what's your name?"],
-    "responses": ["My name is VaporWave I was created by Piergiuseppe Di Pilla, part of Pier's knowledge flows freely in my source code. I'm a CyberLife project"],
+    "responses": ["Il mio nome è Vapor sono stato creato da Piergiuseppe Di Pilla,parte della conoscenza di Pier scorre libera nel mio codice sorgente \"\n                \"Sono un progetto CyberLife in fase di addestramento"],
     "context_set": ""
   },
   {"tag": "exit",
