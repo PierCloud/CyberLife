@@ -1,0 +1,33 @@
+{"intents": [
+  {"tag": "greeting",
+    "patterns": ["Hi", "How are you", "Is anyone there?", "Hello", "Good day", "Whats up", "Hey", "greetings"],
+    "responses": ["Hello!", "Good to see you again!", "Hi there, how can I help?"],
+    "context_set": ""
+  },
+  {"tag": "create_note",
+    "patterns": ["please create a new note", "new note", "create a note", "i want to create a note", "i just want a note", "please note", "i want a new note", "new notes"],
+    "responses": ["okay tell me all"],
+    "context_set": ""
+  },
+  {"tag": "add_todo",
+    "patterns": ["i want to add a todo", "add a new todo", "add todo in my list", "please add new todo"],
+    "responses": ["yes tell me"],
+    "context_set": ""
+  },
+  {"tag": "show_todos",
+    "patterns": ["show my todos", "what are my list", "what are my todos","what is on my todos list", "show my todos list","show my todos"],
+    "responses": [""],
+    "context_set": ""
+  },
+  {"tag": "curiosity",
+    "patterns": ["who is your inventor?", "who are you?", "who you?","what's your name?"],
+    "responses": ["My name is VaporWave I was created by Piergiuseppe Di Pilla, part of Pier's knowledge flows freely in my source code. I'm a CyberLife project"],
+    "context_set": ""
+  },
+  {"tag": "exit",
+    "patterns": ["bye","stop","bye bye","Quit","i want to quit","GoodBye","exit","i have to go","go out"],
+    "responses": [""],
+    "context_set": ""
+  }
+]
+}

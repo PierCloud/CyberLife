@@ -15,7 +15,7 @@
     "context_set": ""
   },
   {"tag": "curiosity",
-    "patterns": ["who is your inventor?", "who are you?", ""],
+    "patterns": ["who is your inventor?", "who are you?", "who you?"],
     "responses": ["I was created by Piergiuseppe Di Pilla, part of Pier's knowledge flows freely in my source code. I'm a CyberLife project"],
     "context_set": ""
   }
